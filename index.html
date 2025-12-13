@@ -309,7 +309,7 @@
   <div class="container">
     <div id="form-container">
       <h1>✨ 수업/관리 후기 작성</h1>
-      <p class="subtitle">스타벅스 쿠폰 즉시 발송!</p>
+      <p class="subtitle">소중한 후기 감사합니다!</p>
       <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
       
       <div class="page-indicator">
@@ -329,7 +329,7 @@
           </div>
 
           <div class="form-group">
-            <label>2. 연락처 (쿠폰 발송용) <span class="required">*</span></label>
+            <label>2. 연락처 <span class="required">*</span></label>
             <div class="phone-group">
               <input type="tel" id="phone1" value="010" readonly>
               <input type="tel" id="phone2" maxlength="4" required placeholder="1234" inputmode="numeric" pattern="[0-9]*">
@@ -401,7 +401,7 @@
               </label>
             </div>
             <div class="gift-notice">
-              ✨ 동의 시 스타벅스 쿠폰을 보내드립니다.
+              ✨ 동의 시 다음 방문 때 작은 선물을 드립니다!
             </div>
           </div>
 
@@ -434,10 +434,9 @@
       <div class="success-icon">✅</div>
       <h2>후기 작성 감사합니다!</h2>
       <p>
-        📱 스타벅스 쿠폰이 곧 발송됩니다<br>
-        (입력하신 연락처로 5분 내 전송)<br><br>
-        🎁 공개 동의 시<br>
-        다음 방문 때 작은 선물을 드려요!
+        소중한 후기 감사드립니다!<br><br>
+        🎁 공개 동의하신 분은<br>
+        다음 방문 때 작은 선물을 받으실 수 있어요!
       </p>
     </div>
   </div>
@@ -474,19 +473,14 @@
     const phone3 = document.getElementById('phone3');
 
     phone2.addEventListener('input', function(e) {
-      // 숫자만 입력
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
-      
-      // 4자리 입력 시 자동 이동
       if (e.target.value.length === 4) {
         phone3.focus();
       }
-      
       updatePhoneHidden();
     });
 
     phone3.addEventListener('input', function(e) {
-      // 숫자만 입력
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
       updatePhoneHidden();
     });
@@ -629,7 +623,6 @@
       const formData = new FormData(this);
       const data = Object.fromEntries(formData);
 
-      // GitHub Pages에서는 google.script.run이 없으므로
       // 실제 배포 시 Google Apps Script URL로 POST 요청
       const scriptUrl = 'https://script.google.com/macros/s/여기에-실제-Apps-Script-URL-입력/exec';
       
@@ -647,7 +640,6 @@
       })
       .catch((error) => {
         console.error('Error:', error);
-        // no-cors 모드에서는 에러가 나도 정상 처리될 수 있음
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('successMessage').style.display = 'block';
       });
