@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -80,229 +81,232 @@
       resize: vertical;
       line-height: 1.6;
     }
-    
-    /* 연락처 3칸 */
-    .phone-group {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .phone-group input {
-      flex: 1;
-      text-align: center;
-    }
-    .phone-group input:first-child {
-      flex: 0.8;
-      background: #f5f5f5;
-      color: #666;
-    }
-    
-    /* 프로그램 선택 - 가로 배치 */
-    .radio-group {
-      display: flex;
-      gap: 10px;
-    }
-    .radio-option {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 10px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-    }
-    .radio-option:hover {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .radio-option input[type="radio"] {
-      display: none;
-    }
-    .radio-option.selected {
-      border-color: #667eea;
-      background: #f8f9ff;
-      font-weight: 600;
-    }
-    
-    .guide {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 12px;
-      line-height: 1.6;
-      background: #f8f9fa;
-      padding: 12px;
-      border-radius: 8px;
-    }
-    .char-count {
-      text-align: right;
-      font-size: 13px;
-      color: #999;
-      margin-top: 5px;
-    }
-    .char-count.valid { color: #28a745; }
-    .stars {
-      display: flex;
-      gap: 8px;
-      font-size: 40px;
-      margin-top: 10px;
-    }
-    .star {
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-    }
-    .star:hover {
-      transform: scale(1.2);
-    }
-    .star.inactive { 
-      filter: grayscale(100%);
-      opacity: 0.3;
-    }
-    .star.active { 
-      filter: grayscale(0%);
-      animation: starPop 0.3s;
-    }
-    @keyframes starPop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-    .checkbox-group {
-      margin-top: 10px;
-    }
-    .checkbox-option {
-      display: flex;
-      align-items: flex-start;
-      padding: 15px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .checkbox-option:hover {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .checkbox-option.checked {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .checkbox-option input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-right: 12px;
-      margin-top: 2px;
-      cursor: pointer;
-    }
-    .gift-notice {
-      background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #856404;
-      margin-top: 15px;
-      text-align: center;
-      font-weight: 600;
-    }
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 30px;
-    }
-    .btn {
-      flex: 1;
-      padding: 16px;
-      border: none;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-prev {
-      background: #f0f0f0;
-      color: #666;
-    }
-    .btn-prev:hover {
-      background: #e0e0e0;
-    }
-    .btn-next, .btn-submit {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    .btn-next:hover, .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-    }
-    .btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .page-indicator {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 14px;
-      color: #999;
-    }
-    .page-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ddd;
-      transition: all 0.3s;
-    }
-    .dot.active {
-      background: #667eea;
-      width: 24px;
-      border-radius: 4px;
-    }
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 40px;
-    }
-    .spinner {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #667eea;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 40px;
-    }
-    .success-icon {
-      font-size: 60px;
-      margin-bottom: 20px;
-    }
-    .success-message h2 {
-      color: #667eea;
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
-    .success-message p {
-      color: #666;
-      line-height: 1.8;
-      font-size: 15px;
-    }
+
+```
+/* 연락처 3칸 */
+.phone-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.phone-group input {
+  flex: 1;
+  text-align: center;
+}
+.phone-group input:first-child {
+  flex: 0.8;
+  background: #f5f5f5;
+  color: #666;
+}
+
+/* 프로그램 선택 - 가로 배치 */
+.radio-group {
+  display: flex;
+  gap: 10px;
+}
+.radio-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+.radio-option:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+.radio-option input[type="radio"] {
+  display: none;
+}
+.radio-option.selected {
+  border-color: #667eea;
+  background: #f8f9ff;
+  font-weight: 600;
+}
+
+.guide {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+}
+.char-count {
+  text-align: right;
+  font-size: 13px;
+  color: #999;
+  margin-top: 5px;
+}
+.char-count.valid { color: #28a745; }
+.stars {
+  display: flex;
+  gap: 8px;
+  font-size: 40px;
+  margin-top: 10px;
+}
+.star {
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.star:hover {
+  transform: scale(1.2);
+}
+.star.inactive { 
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+.star.active { 
+  filter: grayscale(0%);
+  animation: starPop 0.3s;
+}
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+.checkbox-group {
+  margin-top: 10px;
+}
+.checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.checkbox-option:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+.checkbox-option.checked {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+.checkbox-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.gift-notice {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #856404;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+.btn {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-prev {
+  background: #f0f0f0;
+  color: #666;
+}
+.btn-prev:hover {
+  background: #e0e0e0;
+}
+.btn-next, .btn-submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+.btn-next:hover, .btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+.page-indicator {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #999;
+}
+.page-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: all 0.3s;
+}
+.dot.active {
+  background: #667eea;
+  width: 24px;
+  border-radius: 4px;
+}
+.loading {
+  display: none;
+  text-align: center;
+  padding: 40px;
+}
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 40px;
+}
+.success-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+.success-message h2 {
+  color: #667eea;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+.success-message p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 15px;
+}
+```
+
   </style>
 </head>
 <body>
@@ -311,120 +315,138 @@
       <h1>✨ 수업/관리 후기 작성</h1>
       <p class="subtitle">스타벅스 쿠폰 즉시 발송!</p>
       <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
-      
-      <div class="page-indicator">
-        <span id="pageText">1 / 2</span>
-        <div class="page-dots">
-          <div class="dot active" data-page="1"></div>
-          <div class="dot" data-page="2"></div>
+
+```
+  <div class="page-indicator">
+    <span id="pageText">1 / 2</span>
+    <div class="page-dots">
+      <div class="dot active" data-page="1"></div>
+      <div class="dot" data-page="2"></div>
+    </div>
+  </div>
+
+  <form id="reviewForm">
+    <!-- Page 1 -->
+    <div class="page active" id="page1">
+      <div class="form-group">
+        <label>1. 이름 or 별명 <span class="required">*</span></label>
+        <input type="text" name="nickname" id="nickname" required placeholder="예) 홍길동 or 건강지킴이" autofocus>
+      </div>
+
+      <div class="form-group">
+        <label>2. 연락처 (쿠폰 발송용) <span class="required">*</span></label>
+        <div class="phone-group">
+          <input type="tel" id="phone1" value="010" readonly>
+          <input type="tel" id="phone2" maxlength="4" required placeholder="1234" inputmode="numeric" pattern="[0-9]*">
+          <input type="tel" id="phone3" maxlength="4" required placeholder="5678" inputmode="numeric" pattern="[0-9]*">
+        </div>
+        <input type="hidden" name="phone" id="phoneHidden" required>
+      </div>
+
+      <div class="form-group">
+        <label>3. 리:얼 프로그램 선택 <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="program" value="P-스트레칭" required>
+            <span>P-스트레칭</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="program" value="작은 얼굴" required>
+            <span>작은 얼굴</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="program" value="인사이드" required>
+            <span>인사이드</span>
+          </label>
         </div>
       </div>
 
-      <form id="reviewForm">
-        <!-- Page 1 -->
-        <div class="page active" id="page1">
-          <div class="form-group">
-            <label>1. 이름 or 별명 <span class="required">*</span></label>
-            <input type="text" name="nickname" id="nickname" required placeholder="예) 홍길동 or 건강지킴이" autofocus>
-          </div>
+      <div class="button-group">
+        <button type="button" class="btn btn-next" id="nextBtn">다음</button>
+      </div>
+    </div>
 
-          <div class="form-group">
-            <label>2. 연락처 (쿠폰 발송용) <span class="required">*</span></label>
-            <div class="phone-group">
-              <input type="tel" id="phone1" value="010" readonly>
-              <input type="tel" id="phone2" maxlength="4" required placeholder="1234">
-              <input type="tel" id="phone3" maxlength="4" required placeholder="5678">
-            </div>
-            <input type="hidden" name="phone" id="phoneHidden" required>
-          </div>
-
-          <div class="form-group">
-            <label>3. 리:얼 프로그램 선택 <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="program" value="P-스트레칭" required>
-                <span>P-스트레칭</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="program" value="작은 얼굴" required>
-                <span>작은 얼굴</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="program" value="인사이드" required>
-                <span>인사이드</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="button-group">
-            <button type="button" class="btn btn-next" id="nextBtn">다음</button>
-          </div>
+    <!-- Page 2 -->
+    <div class="page" id="page2">
+      <div class="form-group">
+        <label>4. 후기 내용 (최소 50자) <span class="required">*</span></label>
+        <div class="guide">
+          💡 가이드:<br>
+          • 어떤 변화를 느꼈나요?<br>
+          • 가장 좋았던 점은?<br>
+          • 추천하고 싶은 이유는?<br>
+          <span style="color: #999; font-size: 12px;">
+            예) "거북목이 확 펴지는 느낌!", "턱선이 살아났어요", "전문가의 손길이 다르네요", "비수술로 이런 효과라니 놀라워요"
+          </span>
         </div>
-
-        <!-- Page 2 -->
-        <div class="page" id="page2">
-          <div class="form-group">
-            <label>4. 만족도 <span class="required">*</span></label>
-            <div class="stars" id="starRating">
-              <span class="star active" data-rating="1">⭐</span>
-              <span class="star active" data-rating="2">⭐</span>
-              <span class="star active" data-rating="3">⭐</span>
-              <span class="star active" data-rating="4">⭐</span>
-              <span class="star active" data-rating="5">⭐</span>
-            </div>
-            <input type="hidden" name="rating" id="ratingValue" value="5" required>
-          </div>
-
-          <div class="form-group">
-            <label>5. 후기 내용 (최소 50자) <span class="required">*</span></label>
-            <div class="guide">
-              💡 가이드:<br>
-              • 어떤 변화를 느꼈나요?<br>
-              • 가장 좋았던 점은?<br>
-              • 추천하고 싶은 이유는?
-            </div>
-            <textarea name="review" id="reviewText" required placeholder="후기를 작성해주세요..."></textarea>
-            <div class="char-count" id="charCountDiv">
-              <span id="charCount">0</span> / 50자
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>6. 후기 공개 동의 (선택)</label>
-            <div class="checkbox-group">
-              <label class="checkbox-option">
-                <input type="checkbox" name="publicAgree" id="publicAgree" value="yes">
-                <span>홈페이지 / 카카오채널 / SNS 후기 게시 동의</span>
-              </label>
-            </div>
-            <div class="gift-notice">
-              ✨ 동의 시 스타벅스 쿠폰을 보내드립니다.
-            </div>
-          </div>
-
-          <div class="button-group">
-            <button type="button" class="btn btn-prev" id="prevBtn">이전</button>
-            <button type="submit" class="btn btn-submit" id="submitBtn">제출하기</button>
-          </div>
+        <textarea name="review" id="reviewText" required placeholder="후기를 작성해주세요..."></textarea>
+        <div class="char-count" id="charCountDiv">
+          <span id="charCount">0</span> / 50자
         </div>
-      </form>
-    </div>
+      </div>
 
-    <div class="loading" id="loadingDiv">
-      <div class="spinner"></div>
-      <p>⏳ 제출 중입니다...</p>
-    </div>
+      <div class="form-group">
+        <label>5. 만족도 <span class="required">*</span></label>
+        <div class="stars" id="starRating">
+          <span class="star active" data-rating="1">⭐</span>
+          <span class="star active" data-rating="2">⭐</span>
+          <span class="star active" data-rating="3">⭐</span>
+          <span class="star active" data-rating="4">⭐</span>
+          <span class="star active" data-rating="5">⭐</span>
+        </div>
+        <input type="hidden" name="rating" id="ratingValue" value="5" required>
+      </div>
 
-    <div class="success-message" id="successMessage">
-      <div class="success-icon">✅</div>
-      <h2>후기 작성 감사합니다!</h2>
-      <p>
-        📱 스타벅스 쿠폰이 곧 발송됩니다<br>
-        (입력하신 연락처로 5분 내 전송)<br><br>
-        🎁 공개 동의 시<br>
-        다음 방문 때 작은 선물을 드려요!
-      </p>
+      <div class="form-group">
+        <label>6. 후기 공개 동의 (선택)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-option">
+            <input type="checkbox" name="publicAgree" id="publicAgree" value="yes">
+            <span>홈페이지 / 카카오채널 / SNS 후기 게시 동의</span>
+          </label>
+        </div>
+        <div class="gift-notice">
+          ✨ 동의 시 스타벅스 쿠폰을 보내드립니다.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>7. 지인 소개 (선택)</label>
+        <div class="guide" style="margin-bottom: 10px;">
+          💬 주변에 추천하고 싶은 분이 계신가요?<br>
+          지인 연락처를 남겨주시면 무료 체험 안내를 보내드려요!
+        </div>
+        <input type="tel" name="referralPhone" id="referralPhone" placeholder="010-0000-0000 (선택사항)" inputmode="numeric">
+        <div style="font-size: 13px; color: #666; margin-top: 8px;">
+          🎁 지인이 정규 프로그램 등록 시, 회원님께 1회 무료 세션을 드립니다!
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="btn btn-prev" id="prevBtn">이전</button>
+        <button type="submit" class="btn btn-submit" id="submitBtn">제출하기</button>
+      </div>
     </div>
+  </form>
+</div>
+
+<div class="loading" id="loadingDiv">
+  <div class="spinner"></div>
+  <p>⏳ 제출 중입니다...</p>
+</div>
+
+<div class="success-message" id="successMessage">
+  <div class="success-icon">✅</div>
+  <h2>후기 작성 감사합니다!</h2>
+  <p>
+    📱 스타벅스 쿠폰이 곧 발송됩니다<br>
+    (입력하신 연락처로 5분 내 전송)<br><br>
+    🎁 공개 동의 시<br>
+    다음 방문 때 작은 선물을 드려요!
+  </p>
+</div>
+```
+
   </div>
 
   <script>
@@ -481,6 +503,20 @@
       const phone2Val = phone2.value;
       const phone3Val = phone3.value;
       document.getElementById('phoneHidden').value = `${phone1}-${phone2Val}-${phone3Val}`;
+    }
+
+    // 지인 소개 연락처 자동 포맷팅
+    const referralPhone = document.getElementById('referralPhone');
+    if (referralPhone) {
+      referralPhone.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^0-9]/g, '');
+        if (value.length > 3 && value.length <= 7) {
+          value = value.slice(0, 3) + '-' + value.slice(3);
+        } else if (value.length > 7) {
+          value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+        }
+        e.target.value = value;
+      });
     }
 
     // 다음 버튼
@@ -624,5 +660,6 @@
       });
     });
   </script>
+
 </body>
 </html>
