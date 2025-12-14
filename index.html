@@ -338,24 +338,6 @@
             <input type="hidden" name="phone" id="phoneHidden" required>
           </div>
 
-          <div class="form-group">
-            <label>3. 리:얼 프로그램 선택 <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="program" value="P-스트레칭" required>
-                <span>P-스트레칭</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="program" value="작은 얼굴" required>
-                <span>작은 얼굴</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="program" value="인사이드" required>
-                <span>인사이드</span>
-              </label>
-            </div>
-          </div>
-
           <div class="button-group">
             <button type="button" class="btn btn-next" id="nextBtn">다음</button>
           </div>
@@ -363,49 +345,57 @@
 
         <!-- Page 2 -->
         <div class="page" id="page2">
+          
           <div class="form-group">
-            <label>4. 후기 내용 (최소 50자) <span class="required">*</span></label>
+            <label>3. 후기 내용 (최소 50자) <span class="required">*</span></label>
             <div class="guide">
               💡 가이드:<br>
               • 어떤 변화를 느꼈나요?<br>• 가장 좋았던 점은? / 추천하고 싶은 이유는?<br><br>
               <span style="color: #999; font-size: 12px;">
-                <strong><가장 많았던 후기></strong><br>
-                <strong>P-스트레칭)</strong> "전문가의 손길이 다르긴 다르네요", "뭐가 문제였는지 확실히 알았어요", "거북목이 확 펴지는 느낌!"<br><br>
-                <strong>작은얼굴)</strong> "턱선이 살아났어요", "꾸준하게 하면 진짜 될 것 같은 느낌이 확 들었어요", "그동안 받았던 에스테틱이란 완전 달라요"<br><br>
-                <strong>인사이드)</strong> "진짜 신기해요. 성향분석 완전 정확해요", "목표를 찾은것 같아요", "내 재능이 뭔지 확실히 알겠어요"<br><br>
-              </span>
+                </span>
             </div>
+            <div class="form-group" style="margin-top: 20px;">
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="program" value="P-스트레칭" required>
+                    <span>P-스트레칭</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="program" value="작은 얼굴" required>
+                    <span>작은 얼굴</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="program" value="인사이드" required>
+                    <span>인사이드</span>
+                  </label>
+                </div>
+            </div>
+            
+            <div class="form-group" style="text-align: center;"> 
+              <div class="stars" id="starRating" style="justify-content: center; margin-top: 15px; margin-bottom: 25px;"> 
+                <span class="star active" data-rating="1">⭐</span>
+                <span class="star active" data-rating="2">⭐</span>
+                <span class="star active" data-rating="3">⭐</span>
+                <span class="star active" data-rating="4">⭐</span>
+                <span class="star active" data-rating="5">⭐</span>
+              </div>
+              <input type="hidden" name="rating" id="ratingValue" value="5" required>
+            </div>
+            
             <textarea name="review" id="reviewText" required placeholder="후기를 작성해주세요..."></textarea>
             <div class="char-count" id="charCountDiv">
               <span id="charCount">0</span> / 50자
             </div>
           </div>
 
+
           <div class="form-group">
-            <label>5. 만족도 <span class="required">*</span></label>
-            <div class="stars" id="starRating">
-              <span class="star active" data-rating="1">⭐</span>
-              <span class="star active" data-rating="2">⭐</span>
-              <span class="star active" data-rating="3">⭐</span>
-              <span class="star active" data-rating="4">⭐</span>
-              <span class="star active" data-rating="5">⭐</span>
-            </div>
-            <input type="hidden" name="rating" id="ratingValue" value="5" required>
-          </div>
-      
-          <div class="form-group">
-            <label>6. 주변에 추천하고 싶은 분이 계신가요?</label>
+            <label>4. 주변에 추천하고 싶은 분이 계신가요?</label>
             <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">              
               <span style="font-size: 15px; color: #333;">"🎁 <strong>소개하고 싶은 분이 딱 떠오르신다면!</strong>"</span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요(유효기간 2주).</span>
             </div>
-            <div class="checkbox-group">
-              <label class="checkbox-option" style="border: 2px solid #ff6b6b;">
-                <input type="checkbox" name="hasReferral" id="hasReferral" value="yes">
-                <span style="font-weight: 600;">네, 한 분 떠올랐어요!</span>
-              </label>
-            </div>
-            <div id="couponProgramSelect" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
+            <div id="couponProgramSelect" style="display: none; margin-bottom: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
               <label style="font-size: 14px; color: #667eea; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
               <div class="radio-group">
                 <label class="radio-option">
@@ -418,6 +408,12 @@
                 </label>
               </div>
             </div>            
+            <div class="checkbox-group">
+              <label class="checkbox-option" style="border: 2px solid #ff6b6b;">
+                <input type="checkbox" name="hasReferral" id="hasReferral" value="yes">
+                <span style="font-weight: 600;">네, 한 분 떠올랐어요!</span>
+              </label>
+            </div>
           </div>
 
           <div class="button-group">
@@ -425,8 +421,6 @@
             <button type="submit" class="btn btn-submit" id="submitBtn">제출하기</button>
           </div>
         </div>
-      </form>
-    </div>
 
     <div class="loading" id="loadingDiv">
       <div class="spinner"></div>
@@ -527,12 +521,7 @@
       if (phone3Val.length !== 4) {
         alert('연락처를 작성해주세요.\n세 번째 칸에 4자리 숫자를 입력하세요.');
         phone3.focus();
-        return;
-      }
-      if (!program) {
-        alert('리:얼 프로그램을 선택해주세요.');
-        return;
-      }
+        return;      
 
       updatePhoneHidden();
       showPage(2);
