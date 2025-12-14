@@ -357,6 +357,7 @@
             </div>
             
             <div class="form-group" style="margin-top: 20px;">
+                <label style="font-size: 14px; color: #667eea; margin-bottom: 8px; font-weight: 600;">후기 남기실 프로그램을 선택하세요</label> 
                 <div class="radio-group">
                   <label class="radio-option">
                     <input type="radio" name="program" value="P-스트레칭" required>
@@ -397,7 +398,15 @@
               <span style="font-size: 15px; color: #333;">"🎁 <strong>소개하고 싶은 분이 딱 떠오르신다면!</strong>"</span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요(유효기간 2주).</span>
             </div>
-            <div id="couponProgramSelect" style="margin-bottom: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
+            
+            <div class="checkbox-group">
+              <label class="checkbox-option" style="border: 2px solid #ff6b6b;">
+                <input type="checkbox" name="hasReferral" id="hasReferral" value="yes">
+                <span style="font-weight: 600;">네, 한 분 떠올랐어요!</span>
+              </label>
+            </div>
+            
+            <div id="couponProgramSelect" style="margin-top: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
               <label style="font-size: 14px; color: #667eea; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
               <div class="radio-group">
                 <label class="radio-option">
@@ -413,13 +422,10 @@
                   <span>인사이드</span>
                 </label>
               </div>
+              <div id="couponDescription" style="margin-top: 15px; padding: 10px; border-radius: 8px; background: #ffffff; border-left: 3px solid #667eea; font-size: 13px; min-height: 40px; color: #333;">
+                프로그램을 선택하시면 간략한 설명이 표시됩니다.
+              </div>
             </div>            
-            <div class="checkbox-group">
-              <label class="checkbox-option" style="border: 2px solid #ff6b6b;">
-                <input type="checkbox" name="hasReferral" id="hasReferral" value="yes">
-                <span style="font-weight: 600;">네, 한 분 떠올랐어요!</span>
-              </label>
-            </div>
           </div>
 
           <div class="button-group">
@@ -446,6 +452,13 @@
 
   <script>
     let currentPage = 1;
+
+    // 프로그램 설명 데이터
+    const couponDescriptions = {
+      "P-스트레칭": "<strong>목적:</strong> 만성 통증 개선 및 자세 교정. <strong>이점:</strong> 거북목, 굽은 어깨, 허리 통증 완화에 효과적입니다.",
+      "작은 얼굴": "<strong>목적:</strong> 비대칭 개선 및 림프 순환 촉진. <strong>이점:</strong> V라인, 턱선 정리, 부종 제거 및 안면 윤곽 관리에 탁월합니다.",
+      "인사이드": "<strong>목적:</strong> 내면의 재능 및 성향 분석. <strong>이점:</strong> 잠재력 발견, 목표 설정, 자기 이해 증진을 통해 인생의 방향성을 제시합니다."
+    };
 
     // 페이지 로드 시 첫 번째 입력칸에 포커스
     window.addEventListener('load', function() {
@@ -514,7 +527,6 @@
       const nickname = document.getElementById('nickname').value.trim();
       const phone2Val = phone2.value.trim();
       const phone3Val = phone3.value.trim();
-      // const program = document.querySelector('input[name="program"]:checked'); // Page 2로 이동하여 주석 처리됨
 
       if (!nickname) {
         alert('이름 or 별명을 작성해주세요.');
@@ -531,10 +543,6 @@
         phone3.focus();
         return;
       }
-      // if (!program) {
-      //   alert('리:얼 프로그램을 선택해주세요.');
-      //   return;
-      // }
 
       updatePhoneHidden();
       showPage(2);
@@ -547,27 +555,47 @@
       window.scrollTo(0, 0);
     });
 
-    // 라디오 버튼 스타일 (Page 2의 프로그램 선택 및 쿠폰 선택에 모두 적용됨)
+    // 라디오 버튼 스타일 및 쿠폰 설명 업데이트
+    const couponDescriptionDiv = document.getElementById('couponDescription');
+
     document.querySelectorAll('.radio-option').forEach(option => {
       option.addEventListener('click', function() {
-        // 프로그램 선택 및 쿠폰 선택 라디오 그룹을 구분하여 선택 스타일 적용
-        const radioName = this.querySelector('input[type="radio"]').name;
+        const radioInput = this.querySelector('input[type="radio"]');
+        const radioName = radioInput.name;
+        
+        // 1. 스타일 업데이트
         document.querySelectorAll(`input[name="${radioName}"]`).forEach(input => {
              input.parentElement.classList.remove('selected');
         });
         this.classList.add('selected');
-        this.querySelector('input[type="radio"]').checked = true;
+        radioInput.checked = true;
+
+        // 2. 쿠폰 프로그램 설명 업데이트 (NEW)
+        if (radioName === 'couponProgram' && couponDescriptionDiv) {
+            const selectedValue = radioInput.value;
+            if (couponDescriptions[selectedValue]) {
+                couponDescriptionDiv.innerHTML = couponDescriptions[selectedValue];
+            }
+        }
       });
     });
 
-    // 체크박스 스타일
+    // 체크박스 스타일 (영역 클릭 시에도 체크/해제 되도록)
     document.querySelectorAll('.checkbox-option').forEach(option => {
       const checkbox = option.querySelector('input[type="checkbox"]');
+      
+      // 1. 영역 클릭 시 이벤트 처리
       option.addEventListener('click', function(e) {
         if (e.target !== checkbox) {
-          checkbox.checked = !checkbox.checked;
+            e.preventDefault(); 
+            checkbox.checked = !checkbox.checked;
         }
         this.classList.toggle('checked', checkbox.checked);
+      });
+
+      // 2. 체크박스 자체의 상태 변경 시 스타일 적용
+      checkbox.addEventListener('change', function() {
+        checkbox.parentElement.classList.toggle('checked', this.checked);
       });
     });
     
