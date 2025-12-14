@@ -397,7 +397,7 @@
               <span style="font-size: 15px; color: #333;">"🎁 <strong>소개하고 싶은 분이 딱 떠오르신다면!</strong>"</span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요(유효기간 2주).</span>
             </div>
-            <div id="couponProgramSelect" style="display: none; margin-bottom: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
+            <div id="couponProgramSelect" style="margin-bottom: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
               <label style="font-size: 14px; color: #667eea; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
               <div class="radio-group">
                 <label class="radio-option">
@@ -407,6 +407,10 @@
                 <label class="radio-option">
                   <input type="radio" name="couponProgram" value="작은 얼굴">
                   <span>작은 얼굴</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="couponProgram" value="인사이드">
+                  <span>인사이드</span>
                 </label>
               </div>
             </div>            
@@ -567,22 +571,6 @@
       });
     });
     
-    // ** [기능 추가] 4번 문항: 추천 시 쿠폰 프로그램 선택창 토글 **
-    const hasReferralCheckbox = document.getElementById('hasReferral');
-    const couponProgramSelect = document.getElementById('couponProgramSelect');
-
-    hasReferralCheckbox.addEventListener('change', function() {
-      if (this.checked) {
-        couponProgramSelect.style.display = 'block';
-      } else {
-        couponProgramSelect.style.display = 'none';
-        document.querySelectorAll('input[name="couponProgram"]').forEach(radio => {
-            radio.checked = false;
-        });
-      }
-    });
-    // ** [기능 추가] 끝 **
-
     // 별점 기능 (기본값 5개)
     const stars = document.querySelectorAll('.star');
     const ratingValue = document.getElementById('ratingValue');
