@@ -374,7 +374,7 @@
           </div>
 
           <div class="form-group">
-            <label>4. 주변에 추천하고 싶은 분이 계신가요?</label>
+            <label>4. 주변에 추천하고 싶은 분이 계신가요? (선택)</label>
             <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">              
               <span style="font-size: 15px; color: #333;">🎁 <strong>소개하고 싶은 분이 딱 떠오른다면!</strong></span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요.</span>
@@ -551,15 +551,6 @@
         this.classList.add('selected');
         radioInput.checked = true;
 
-        // 2. 후기 프로그램 선택 시 자동 포커스 (강화)
-        if (radioName === 'program') {
-            setTimeout(() => {
-                const reviewTextarea = document.getElementById('reviewText');
-                reviewTextarea.focus();
-                reviewTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 200);
-        }
-
         // 3. 쿠폰 프로그램 설명 업데이트
         if (radioName === 'couponProgram' && couponDescriptionDiv) {
             const selectedValue = radioInput.value;
@@ -649,13 +640,6 @@
     // 폼 제출
     document.getElementById('reviewForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      // Page 2 유효성 검사 추가 (프로그램 선택)
-      const program = document.querySelector('input[name="program"]:checked');
-      if (!program) {
-        alert('리:얼 프로그램을 선택해주세요.');
-        return;
-      }
       
       const review = reviewText.value.trim();
       if (review.length < 50) {
