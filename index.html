@@ -438,7 +438,7 @@
 
     <div class="loading" id="loadingDiv">
       <div class="spinner"></div>
-      <p>⏳ 제출 중입니다...</p>
+      <p id="loadingText">⏳ 제출 중입니다... <span id="countdown"></span></p>
     </div>
 
     <div class="success-message" id="successMessage">
@@ -570,7 +570,14 @@
         this.classList.add('selected');
         radioInput.checked = true;
 
-        // 2. 쿠폰 프로그램 설명 업데이트 (NEW)
+        // 2. 후기 프로그램 선택 시 자동 포커스 (NEW)
+        if (radioName === 'program') {
+            setTimeout(() => {
+                document.getElementById('reviewText').focus();
+            }, 300);
+        }
+
+        // 3. 쿠폰 프로그램 설명 업데이트
         if (radioName === 'couponProgram' && couponDescriptionDiv) {
             const selectedValue = radioInput.value;
             if (couponDescriptions[selectedValue]) {
@@ -591,11 +598,31 @@
             checkbox.checked = !checkbox.checked;
         }
         this.classList.toggle('checked', checkbox.checked);
+        
+        // 지인 추천 체크 시 하단으로 스크롤 (NEW)
+        if (checkbox.id === 'hasReferral' && checkbox.checked) {
+            setTimeout(() => {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
       });
 
       // 2. 체크박스 자체의 상태 변경 시 스타일 적용
       checkbox.addEventListener('change', function() {
         checkbox.parentElement.classList.toggle('checked', this.checked);
+        
+        // 지인 추천 체크 시 하단으로 스크롤 (NEW)
+        if (this.id === 'hasReferral' && this.checked) {
+            setTimeout(() => {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
       });
     });
     
@@ -662,29 +689,48 @@
       document.getElementById('form-container').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
 
+      // 7초 카운트다운 시작 (NEW)
+      let countdown = 7;
+      const countdownSpan = document.getElementById('countdown');
+      countdownSpan.textContent = countdown + '초';
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          countdownSpan.textContent = countdown + '초';
+        } else {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+
       const formData = new FormData(this);
       const data = Object.fromEntries(formData);
 
       // 실제 배포 시 Google Apps Script URL로 POST 요청
       const scriptUrl = 'https://script.google.com/macros/s/AKfycbzihZH36A-G7nGdD-TgbDVRp8WTiw7yzHDkqBOTF_dlK8JKr2-YBSeGPcrrL-lsRcbq/exec';
       
-      fetch(scriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-      });
+      // 7초 후 성공 메시지 표시 (카운트다운과 동기화)
+      setTimeout(() => {
+        fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+        .then(() => {
+          clearInterval(countdownInterval);
+          document.getElementById('loadingDiv').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          clearInterval(countdownInterval);
+          document.getElementById('loadingDiv').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        });
+      }, 7000);
     });
   </script>
 </body>
