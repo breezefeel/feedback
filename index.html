@@ -321,7 +321,6 @@
       </div>
 
       <form id="reviewForm">
-        <!-- Page 1 -->
         <div class="page active" id="page1">
           <div class="form-group">
             <label>1. 이름 <span class="required">*</span></label>
@@ -337,23 +336,26 @@
             </div>
             <input type="hidden" name="phone" id="phoneHidden" required>
           </div>
-
+          
           <div class="button-group">
             <button type="button" class="btn btn-next" id="nextBtn">다음</button>
           </div>
         </div>
 
-        <!-- Page 2 -->
         <div class="page" id="page2">
-          
           <div class="form-group">
             <label>3. 후기 내용 (최소 50자) <span class="required">*</span></label>
             <div class="guide">
               💡 가이드:<br>
               • 어떤 변화를 느꼈나요?<br>• 가장 좋았던 점은? / 추천하고 싶은 이유는?<br><br>
               <span style="color: #999; font-size: 12px;">
-                </span>
+                <strong><가장 많았던 후기></strong><br>
+                <strong>P-스트레칭)</strong> "전문가의 손길이 다르긴 다르네요", "뭐가 문제였는지 확실히 알았어요", "거북목이 확 펴지는 느낌!"<br><br>
+                <strong>작은얼굴)</strong> "턱선이 살아났어요", "꾸준하게 하면 진짜 될 것 같은 느낌이 확 들었어요", "그동안 받았던 에스테틱이란 완전 달라요"<br><br>
+                <strong>인사이드)</strong> "진짜 신기해요. 성향분석 완전 정확해요", "목표를 찾은것 같아요", "내 재능이 뭔지 확실히 알겠어요"<br><br>
+              </span>
             </div>
+            
             <div class="form-group" style="margin-top: 20px;">
                 <div class="radio-group">
                   <label class="radio-option">
@@ -421,6 +423,8 @@
             <button type="submit" class="btn btn-submit" id="submitBtn">제출하기</button>
           </div>
         </div>
+      </form>
+    </div>
 
     <div class="loading" id="loadingDiv">
       <div class="spinner"></div>
@@ -455,7 +459,7 @@
       document.getElementById('pageText').textContent = `${pageNum} / 2`;
       currentPage = pageNum;
 
-      // 2페이지 진입 시 후기 입력칸에 포커스
+      // 2페이지 진입 시 후기 입력칸에 포커스 (Page 2에서 포커스가 후기 내용 박스로 변경됨)
       if (pageNum === 2) {
         setTimeout(() => {
           document.getElementById('reviewText').focus();
@@ -487,7 +491,7 @@
       document.getElementById('phoneHidden').value = `${phone1}-${phone2Val}-${phone3Val}`;
     }
 
-    // 지인 소개 연락처 자동 포맷팅
+    // 지인 소개 연락처 자동 포맷팅 (참고: 현재 HTML에 referralPhone 항목은 없으나, 기존 스크립트의 해당 로직은 유지됨)
     const referralPhone = document.getElementById('referralPhone');
     if (referralPhone) {
       referralPhone.addEventListener('input', function(e) {
@@ -501,12 +505,12 @@
       });
     }
 
-    // 다음 버튼
+    // 다음 버튼 (Page 1 유효성 검사 - 프로그램 선택 로직 제거됨)
     document.getElementById('nextBtn').addEventListener('click', function() {
       const nickname = document.getElementById('nickname').value.trim();
       const phone2Val = phone2.value.trim();
       const phone3Val = phone3.value.trim();
-      const program = document.querySelector('input[name="program"]:checked');
+      // const program = document.querySelector('input[name="program"]:checked'); // Page 2로 이동하여 주석 처리됨
 
       if (!nickname) {
         alert('이름 or 별명을 작성해주세요.');
@@ -521,7 +525,12 @@
       if (phone3Val.length !== 4) {
         alert('연락처를 작성해주세요.\n세 번째 칸에 4자리 숫자를 입력하세요.');
         phone3.focus();
-        return;      
+        return;
+      }
+      // if (!program) {
+      //   alert('리:얼 프로그램을 선택해주세요.');
+      //   return;
+      // }
 
       updatePhoneHidden();
       showPage(2);
@@ -534,10 +543,14 @@
       window.scrollTo(0, 0);
     });
 
-    // 라디오 버튼 스타일
+    // 라디오 버튼 스타일 (Page 2의 프로그램 선택 및 쿠폰 선택에 모두 적용됨)
     document.querySelectorAll('.radio-option').forEach(option => {
       option.addEventListener('click', function() {
-        document.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+        // 프로그램 선택 및 쿠폰 선택 라디오 그룹을 구분하여 선택 스타일 적용
+        const radioName = this.querySelector('input[type="radio"]').name;
+        document.querySelectorAll(`input[name="${radioName}"]`).forEach(input => {
+             input.parentElement.classList.remove('selected');
+        });
         this.classList.add('selected');
         this.querySelector('input[type="radio"]').checked = true;
       });
@@ -553,6 +566,22 @@
         this.classList.toggle('checked', checkbox.checked);
       });
     });
+    
+    // ** [기능 추가] 4번 문항: 추천 시 쿠폰 프로그램 선택창 토글 **
+    const hasReferralCheckbox = document.getElementById('hasReferral');
+    const couponProgramSelect = document.getElementById('couponProgramSelect');
+
+    hasReferralCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        couponProgramSelect.style.display = 'block';
+      } else {
+        couponProgramSelect.style.display = 'none';
+        document.querySelectorAll('input[name="couponProgram"]').forEach(radio => {
+            radio.checked = false;
+        });
+      }
+    });
+    // ** [기능 추가] 끝 **
 
     // 별점 기능 (기본값 5개)
     const stars = document.querySelectorAll('.star');
@@ -591,25 +620,16 @@
       }
     });
 
-    // ** [추가된 기능] 6번 문항: 추천 시 쿠폰 프로그램 선택창 토글 **
-    const hasReferralCheckbox = document.getElementById('hasReferral');
-    const couponProgramSelect = document.getElementById('couponProgramSelect');
-
-    hasReferralCheckbox.addEventListener('change', function() {
-      if (this.checked) {
-        couponProgramSelect.style.display = 'block';
-      } else {
-        couponProgramSelect.style.display = 'none';
-        document.querySelectorAll('input[name="couponProgram"]').forEach(radio => {
-            radio.checked = false;
-        });
-      }
-    });
-    // ** [추가된 기능] 끝 **
-    
     // 폼 제출
     document.getElementById('reviewForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      // Page 2 유효성 검사 추가 (프로그램 선택)
+      const program = document.querySelector('input[name="program"]:checked');
+      if (!program) {
+        alert('리:얼 프로그램을 선택해주세요.');
+        return;
+      }
       
       const review = reviewText.value.trim();
       if (review.length < 50) {
