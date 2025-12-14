@@ -570,11 +570,13 @@
         this.classList.add('selected');
         radioInput.checked = true;
 
-        // 2. 후기 프로그램 선택 시 자동 포커스 (NEW)
+        // 2. 후기 프로그램 선택 시 자동 포커스 (강화)
         if (radioName === 'program') {
             setTimeout(() => {
-                document.getElementById('reviewText').focus();
-            }, 300);
+                const reviewTextarea = document.getElementById('reviewText');
+                reviewTextarea.focus();
+                reviewTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
         }
 
         // 3. 쿠폰 프로그램 설명 업데이트
@@ -689,8 +691,24 @@
       document.getElementById('form-container').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
 
-      // 7초 카운트다운 시작 (NEW)
-      let countdown = 7;
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      // Google Apps Script URL로 즉시 제출 (응답 대기 안 함)
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbzihZH36A-G7nGdD-TgbDVRp8WTiw7yzHDkqBOTF_dlK8JKr2-YBSeGPcrrL-lsRcbq/exec';
+      
+      // 백그라운드로 즉시 제출 (응답 안 기다림)
+      fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).catch(err => console.log('제출 완료'));
+
+      // 3초 카운트다운만 표시 (짧게 단축)
+      let countdown = 3;
       const countdownSpan = document.getElementById('countdown');
       countdownSpan.textContent = countdown + '초';
       
@@ -700,37 +718,11 @@
           countdownSpan.textContent = countdown + '초';
         } else {
           clearInterval(countdownInterval);
+          // 카운트다운 완료 후 성공 화면
+          document.getElementById('loadingDiv').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
         }
       }, 1000);
-
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-
-      // 실제 배포 시 Google Apps Script URL로 POST 요청
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbzihZH36A-G7nGdD-TgbDVRp8WTiw7yzHDkqBOTF_dlK8JKr2-YBSeGPcrrL-lsRcbq/exec';
-      
-      // 7초 후 성공 메시지 표시 (카운트다운과 동기화)
-      setTimeout(() => {
-        fetch(scriptUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        })
-        .then(() => {
-          clearInterval(countdownInterval);
-          document.getElementById('loadingDiv').style.display = 'none';
-          document.getElementById('successMessage').style.display = 'block';
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          clearInterval(countdownInterval);
-          document.getElementById('loadingDiv').style.display = 'none';
-          document.getElementById('successMessage').style.display = 'block';
-        });
-      }, 7000);
     });
   </script>
 </body>
