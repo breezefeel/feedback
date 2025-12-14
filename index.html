@@ -602,6 +602,22 @@
       }
     });
 
+    // ** [추가된 기능] 6번 문항: 추천 시 쿠폰 프로그램 선택창 토글 **
+    const hasReferralCheckbox = document.getElementById('hasReferral');
+    const couponProgramSelect = document.getElementById('couponProgramSelect');
+
+    hasReferralCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        couponProgramSelect.style.display = 'block';
+      } else {
+        couponProgramSelect.style.display = 'none';
+        document.querySelectorAll('input[name="couponProgram"]').forEach(radio => {
+            radio.checked = false;
+        });
+      }
+    });
+    // ** [추가된 기능] 끝 **
+    
     // 폼 제출
     document.getElementById('reviewForm').addEventListener('submit', function(e) {
       e.preventDefault();
