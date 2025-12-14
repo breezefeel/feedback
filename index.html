@@ -309,7 +309,7 @@
   <div class="container">
     <div id="form-container">
       <h1>✨ 수업/관리 후기 작성</h1>
-      <p class="subtitle">소중한 후기 감사합니다!</p>
+      <p class="subtitle">스타벅스 쿠폰 즉시 발송!</p>
       <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
       
       <div class="page-indicator">
@@ -324,16 +324,16 @@
         <!-- Page 1 -->
         <div class="page active" id="page1">
           <div class="form-group">
-            <label>1. 이름 <span class="required">*</span></label>
-            <input type="text" name="nickname" id="nickname" required placeholder="이름을 입력하세요" autofocus>
+            <label>1. 이름 or 별명 <span class="required">*</span></label>
+            <input type="text" name="nickname" id="nickname" required placeholder="예) 홍길동 or 건강지킴이" autofocus>
           </div>
 
           <div class="form-group">
-            <label>2. 연락처 <span class="required">*</span></label>
+            <label>2. 연락처 (쿠폰 발송용) <span class="required">*</span></label>
             <div class="phone-group">
               <input type="tel" id="phone1" value="010" readonly>
               <input type="tel" id="phone2" maxlength="4" required placeholder="1234" inputmode="numeric" pattern="[0-9]*">
-              <input type="tel" id="phone3" maxlength="4" required placeholder="1234" inputmode="numeric" pattern="[0-9]*">
+              <input type="tel" id="phone3" maxlength="4" required placeholder="5678" inputmode="numeric" pattern="[0-9]*">
             </div>
             <input type="hidden" name="phone" id="phoneHidden" required>
           </div>
@@ -367,12 +367,14 @@
             <label>4. 후기 내용 (최소 50자) <span class="required">*</span></label>
             <div class="guide">
               💡 가이드:<br>
-              • 어떤 변화를 느꼈나요?<br>• 가장 좋았던 점은? / 추천하고 싶은 이유는?<br><br>
+              • 어떤 변화를 느꼈나요?<br>
+              • 가장 좋았던 점은?<br>
+              • 추천하고 싶은 이유는?<br>
               <span style="color: #999; font-size: 12px;">
-                <strong><가장 많았던 후기></strong><br>
-                <strong>P-스트레칭)</strong> "전문가의 손길이 다르긴 다르네요", "뭐가 문제였는지 확실히 알았어요", "거북목이 확 펴지는 느낌!"<br><br>
-                <strong>작은얼굴)</strong> "턱선이 살아났어요", "꾸준하게 하면 진짜 될 것 같은 느낌이 확 들었어요", "그동안 받았던 에스테틱이란 완전 달라요"<br><br>
-                <strong>인사이드)</strong> "진짜 신기해요. 성향분석 완전 정확해요", "목표를 찾은것 같아요", "내 재능이 뭔지 확실히 알겠어요"<br><br>
+                예시)<br>
+                • P-스트레칭: "10년 거북목이 한 번에!", "앉아있어도 어깨가 가벼워요", "자세 교정은 리얼이 답이에요"<br>
+                • 작은 얼굴: "거울 볼 때마다 신기해요", "턱선이 이렇게 살아날 줄이야", "비수술 얼굴 축소 리얼 최고"<br>
+                • 인사이드: "나를 이렇게 잘 아시다니", "성격 분석 완전 정확해요", "인생 상담까지 되는 느낌"
               </span>
             </div>
             <textarea name="review" id="reviewText" required placeholder="후기를 작성해주세요..."></textarea>
@@ -392,14 +394,50 @@
             </div>
             <input type="hidden" name="rating" id="ratingValue" value="5" required>
           </div>
-      
+
           <div class="form-group">
-            <label>6. 지인 소개 (선택사항)</label>
-            <div class="guide" style="margin-bottom: 10px;">
-              💬 주변에 추천하고 싶은 분이 계신가요?<br>
-              지인 연락처를 남겨주시면 무료 체험 안내를 보내드려요!
+            <label>6. 후기 공개 동의 (선택)</label>
+            <div class="checkbox-group">
+              <label class="checkbox-option">
+                <input type="checkbox" name="publicAgree" id="publicAgree" value="yes">
+                <span>홈페이지 / 카카오채널 / SNS 후기 게시 동의</span>
+              </label>
             </div>
-            <input type="tel" name="referralPhone" id="referralPhone" placeholder="010-0000-0000 (숫자만 입력하세요)" inputmode="numeric">            
+            <div class="gift-notice">
+              ✨ 동의 시 스타벅스 쿠폰을 보내드립니다.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>7. 소개하고 싶은 분이 떠오르시나요?</label>
+            <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">
+              🎁 <strong>소개하고 싶은 분이 떠오르시나요?</strong><br>
+              <span style="font-size: 15px; color: #333;">"아, 이 사람한테 딱이겠다!"</span><br>
+              <span style="font-size: 13px; color: #856404;">→ 즉시 사용 가능한 추천 쿠폰을 드려요</span>
+            </div>
+            <div class="checkbox-group">
+              <label class="checkbox-option" style="border: 2px solid #ff6b6b;">
+                <input type="checkbox" name="hasReferral" id="hasReferral" value="yes">
+                <span style="font-weight: 600;">✅ 네, 한 분 떠올랐어요!</span>
+              </label>
+            </div>
+            <div id="couponProgramSelect" style="display: none; margin-top: 15px;">
+              <label style="font-size: 14px; color: #667eea; margin-bottom: 8px;">쿠폰 프로그램 선택:</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="couponProgram" value="P-스트레칭">
+                  <span>P-스트레칭</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="couponProgram" value="작은 얼굴">
+                  <span>작은 얼굴</span>
+                </label>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: #666; margin-top: 10px; line-height: 1.5;">
+              💡 체크하시면 카카오톡으로 쿠폰이 발송됩니다<br>
+              📱 지인에게 쿠폰을 공유해주세요 (유효기간 2주)
+            </div>
           </div>
 
           <div class="button-group">
@@ -419,7 +457,10 @@
       <div class="success-icon">✅</div>
       <h2>후기 작성 감사합니다!</h2>
       <p>
-        소중한 후기 감사드립니다!<br>
+        📱 스타벅스 쿠폰이 곧 발송됩니다<br>
+        (입력하신 연락처로 5분 내 전송)<br><br>
+        🎁 공개 동의 시<br>
+        다음 방문 때 작은 선물을 드려요!
       </p>
     </div>
   </div>
@@ -456,14 +497,19 @@
     const phone3 = document.getElementById('phone3');
 
     phone2.addEventListener('input', function(e) {
+      // 숫자만 입력
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      
+      // 4자리 입력 시 자동 이동
       if (e.target.value.length === 4) {
         phone3.focus();
       }
+      
       updatePhoneHidden();
     });
 
     phone3.addEventListener('input', function(e) {
+      // 숫자만 입력
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
       updatePhoneHidden();
     });
@@ -486,6 +532,28 @@
           value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
         }
         e.target.value = value;
+      });
+    }
+
+    // 지인 추천 체크박스
+    const hasReferralCheckbox = document.getElementById('hasReferral');
+    const couponProgramSelect = document.getElementById('couponProgramSelect');
+    
+    if (hasReferralCheckbox) {
+      hasReferralCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          couponProgramSelect.style.display = 'block';
+          // 첫 번째 프로그램 자동 선택
+          document.querySelector('input[name="couponProgram"]').checked = true;
+          document.querySelector('input[name="couponProgram"]').closest('.radio-option').classList.add('selected');
+        } else {
+          couponProgramSelect.style.display = 'none';
+          // 선택 해제
+          document.querySelectorAll('input[name="couponProgram"]').forEach(radio => {
+            radio.checked = false;
+            radio.closest('.radio-option').classList.remove('selected');
+          });
+        }
       });
     }
 
@@ -606,6 +674,7 @@
       const formData = new FormData(this);
       const data = Object.fromEntries(formData);
 
+      // GitHub Pages에서는 google.script.run이 없으므로
       // 실제 배포 시 Google Apps Script URL로 POST 요청
       const scriptUrl = 'https://script.google.com/macros/s/AKfycbzihZH36A-G7nGdD-TgbDVRp8WTiw7yzHDkqBOTF_dlK8JKr2-YBSeGPcrrL-lsRcbq/exec';
       
@@ -623,6 +692,7 @@
       })
       .catch((error) => {
         console.error('Error:', error);
+        // no-cors 모드에서는 에러가 나도 정상 처리될 수 있음
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('successMessage').style.display = 'block';
       });
