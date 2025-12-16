@@ -262,7 +262,7 @@
           transform: none;
       }
       
-      /* === 페이지 인디케이터 스타일 (통일됨) === */
+      /* === 페이지 인디케이터 스타일 (수정됨) === */
       .page-indicator {
           text-align: center;
           margin-bottom: 20px; 
@@ -272,12 +272,12 @@
       .page-dots {
           display: flex;
           justify-content: center;
-          gap: 8px;
-          margin-top: 8px;
+          gap: 10px; /* 간격 확대 */
+          margin-bottom: 10px; /* 숫자 박스와 분리 */
       }
       .dot {
-          width: 8px;
-          height: 8px;
+          width: 10px; /* 굵기 증가 */
+          height: 10px;
           border-radius: 50%;
           background: #ddd;
           transition: all 0.3s;
@@ -285,8 +285,19 @@
       /* 현재 페이지 표시 점 색상: 밝은 골드 */
       .dot.active {
           background: #FFD700;
-          width: 24px;
-          border-radius: 4px;
+          width: 28px; /* 활성화된 점의 길이 증가 */
+          border-radius: 5px; /* 모서리 둥글게 */
+      }
+      #pageText {
+          /* 숫자 표시를 배경 박스 안에 배치 */
+          display: inline-block;
+          padding: 5px 15px;
+          border-radius: 15px;
+          font-size: 15px;
+          font-weight: 700;
+          color: #FFA500; /* 오렌지색 텍스트 */
+          background: #FFFDE7; /* 밝은 옐로우 배경 */
+          border: 1px solid #FFD700;
       }
       /* ================================== */
       
@@ -336,11 +347,12 @@
     <div id="form-container">
       
       <div class="page-indicator">
-        <span id="pageText">1 / 2</span>
         <div class="page-dots">
           <div class="dot active" data-page="1"></div>
           <div class="dot" data-page="2"></div>
         </div>
+        
+        <span id="pageText">1 / 2</span> 
       </div>
       
       <h1>✨후기 작성</h1>
