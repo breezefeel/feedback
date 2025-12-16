@@ -5,312 +5,335 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Re:Al 후기 작성</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    h1 {
-      text-align: center;
-      color: #667eea;
-      margin-bottom: 10px;
-      font-size: 28px;
-    }
-    .subtitle {
-      text-align: center;
-      color: #ff6b6b;
-      margin-bottom: 20px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .divider {
-      text-align: center;
-      color: #ddd;
-      margin-bottom: 30px;
-      letter-spacing: 2px;
-    }
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: block;
-      animation: fadeIn 0.3s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .form-group {
-      margin-bottom: 25px;
-    }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #333;
-      font-size: 15px;
-    }
-    .required { color: #ff6b6b; }
-    input[type="text"], input[type="tel"], textarea {
-      width: 100%;
-      padding: 14px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 16px;
-      transition: all 0.3s;
-      font-family: inherit;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-    
-    /* 연락처 3칸 */
-    .phone-group {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .phone-group input {
-      flex: 1;
-      text-align: center;
-    }
-    .phone-group input:first-child {
-      flex: 0.8;
-      background: #f5f5f5;
-      color: #666;
-    }
-    
-    /* 프로그램 선택 - 가로 배치 */
-    .radio-group {
-      display: flex;
-      gap: 10px;
-    }
-    .radio-option {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 10px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-    }
-    .radio-option:hover {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .radio-option input[type="radio"] {
-      display: none;
-    }
-    .radio-option.selected {
-      border-color: #667eea;
-      background: #f8f9ff;
-      font-weight: 600;
-    }
-    
-    .guide {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 12px;
-      line-height: 1.6;
-      background: #f8f9fa;
-      padding: 12px;
-      border-radius: 8px;
-    }
-    .char-count {
-      text-align: right;
-      font-size: 13px;
-      color: #999;
-      margin-top: 5px;
-    }
-    .char-count.valid { color: #28a745; }
-    .stars {
-      display: flex;
-      gap: 8px;
-      font-size: 40px;
-      margin-top: 10px;
-    }
-    .star {
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-    }
-    .star:hover {
-      transform: scale(1.2);
-    }
-    .star.inactive { 
-      filter: grayscale(100%);
-      opacity: 0.3;
-    }
-    .star.active { 
-      filter: grayscale(0%);
-      animation: starPop 0.3s;
-    }
-    @keyframes starPop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-    .checkbox-group {
-      margin-top: 10px;
-    }
-    .checkbox-option {
-      display: flex;
-      align-items: flex-start;
-      padding: 15px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .checkbox-option:hover {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .checkbox-option.checked {
-      border-color: #667eea;
-      background: #f8f9ff;
-    }
-    .checkbox-option input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-right: 12px;
-      margin-top: 2px;
-      cursor: pointer;
-    }
-    .gift-notice {
-      background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #856404;
-      margin-top: 15px;
-      text-align: center;
-      font-weight: 600;
-    }
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 30px;
-    }
-    .btn {
-      flex: 1;
-      padding: 16px;
-      border: none;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-prev {
-      background: #f0f0f0;
-      color: #666;
-    }
-    .btn-prev:hover {
-      background: #e0e0e0;
-    }
-    .btn-next, .btn-submit {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    .btn-next:hover, .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-    }
-    .btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .page-indicator {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 14px;
-      color: #999;
-    }
-    .page-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ddd;
-      transition: all 0.3s;
-    }
-    .dot.active {
-      background: #667eea;
-      width: 24px;
-      border-radius: 4px;
-    }
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 40px;
-    }
-    .spinner {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #667eea;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 40px;
-    }
-    .success-icon {
-      font-size: 60px;
-      margin-bottom: 20px;
-    }
-    .success-message h2 {
-      color: #667eea;
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
-    .success-message p {
-      color: #666;
-      line-height: 1.8;
-      font-size: 15px;
-    }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+          /* 배경색: 더 밝은 옐로우/오렌지 계열로 변경 */
+          background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+          min-height: 100vh;
+          padding: 20px;
+          
+          /* 배치 통일: 위아래 중앙 정렬 (공백 오류 수정됨) */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .container {
+          /* 배치 통일: 최대 너비 700px, 내부 여백 40px 유지 */
+          max-width: 700px;
+          margin: 0 auto;
+          width: 100%; 
+          
+          background: white;
+          border-radius: 20px;
+          padding: 40px; 
+          
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      }
+
+      /* 제목 색상: 밝은 오렌지/옐로우 강조색 */
+      h1 {
+          text-align: center;
+          color: #FFA500;
+          margin-bottom: 15px;
+          font-size: 28px;
+      }
+      .subtitle {
+          text-align: center;
+          color: #ff6b6b; /* 필수 요소 강조 색상 (빨간색) */
+          margin-bottom: 30px;
+          font-size: 16px;
+          font-weight: 600;
+      }
+      .divider {
+          text-align: center;
+          color: #ddd;
+          margin-bottom: 30px;
+          letter-spacing: 2px;
+      }
+      .page {
+          display: none;
+      }
+      .page.active {
+          display: block;
+          animation: fadeIn 0.3s;
+      }
+      @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+      .form-group {
+          margin-bottom: 25px;
+      }
+      label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 600;
+          color: #333;
+          font-size: 15px;
+      }
+      .required { color: #ff6b6b; }
+      input[type="text"], input[type="tel"], textarea {
+          width: 100%;
+          padding: 14px;
+          border: 2px solid #e0e0e0;
+          border-radius: 10px;
+          font-size: 16px;
+          transition: all 0.3s;
+          font-family: inherit;
+      }
+      /* 포커스 색상: 밝은 골드 */
+      input:focus, textarea:focus {
+          outline: none;
+          border-color: #FFD700;
+          box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+      }
+      textarea {
+          min-height: 150px;
+          resize: vertical;
+          line-height: 1.6;
+      }
+      
+      /* 연락처 3칸 */
+      .phone-group {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+      }
+      .phone-group input {
+          flex: 1;
+          text-align: center;
+      }
+      .phone-group input:first-child {
+          flex: 0.8;
+          background: #f5f5f5;
+          color: #666;
+      }
+      
+      /* 프로그램 선택 - 가로 배치 */
+      .radio-group {
+          display: flex;
+          gap: 10px;
+      }
+      .radio-option {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 15px 10px;
+          border: 2px solid #e0e0e0;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s;
+          text-align: center;
+      }
+      /* 호버/선택 색상: 밝은 골드 */
+      .radio-option:hover {
+          border-color: #FFD700;
+          background: #FFFDE7; /* 더 밝은 배경 */
+      }
+      .radio-option input[type="radio"] {
+          display: none;
+      }
+      .radio-option.selected {
+          border-color: #FFD700;
+          background: #FFFDE7;
+          font-weight: 600;
+      }
+      
+      .guide {
+          font-size: 14px;
+          color: #666;
+          margin-bottom: 12px;
+          line-height: 1.6;
+          background: #f8f9fa;
+          padding: 12px;
+          border-radius: 8px;
+      }
+      
+      .char-count {
+          text-align: right;
+          font-size: 13px;
+          color: #999;
+          margin-top: 5px;
+      }
+      .char-count.valid { color: #28a745; }
+      .stars {
+          display: flex;
+          gap: 8px;
+          font-size: 40px;
+          margin-top: 10px;
+      }
+      .star {
+          cursor: pointer;
+          transition: all 0.2s;
+          user-select: none;
+      }
+      .star:hover {
+          transform: scale(1.2);
+      }
+      .star.inactive { 
+          filter: grayscale(100%);
+          opacity: 0.3;
+      }
+      .star.active { 
+          filter: grayscale(0%);
+          animation: starPop 0.3s;
+      }
+      @keyframes starPop {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.3); }
+          100% { transform: scale(1); }
+      }
+      .checkbox-group {
+          margin-top: 10px;
+      }
+      .checkbox-option {
+          display: flex;
+          align-items: flex-start;
+          padding: 15px;
+          border: 2px solid #e0e0e0;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s;
+      }
+      /* 호버/선택 색상: 밝은 골드 */
+      .checkbox-option:hover {
+          border-color: #FFD700;
+          background: #FFFDE7;
+      }
+      .checkbox-option.checked {
+          border-color: #FFD700;
+          background: #FFFDE7;
+      }
+      .checkbox-option input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          margin-right: 12px;
+          margin-top: 2px;
+          cursor: pointer;
+      }
+      .gift-notice {
+          /* 선물 강조를 위해 기존의 골드 계열 유지 */
+          background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+          padding: 15px;
+          border-radius: 10px;
+          font-size: 14px;
+          color: #856404;
+          margin-top: 15px;
+          text-align: center;
+          font-weight: 600;
+      }
+      .button-group {
+          display: flex;
+          gap: 10px;
+          margin-top: 30px;
+      }
+      .btn {
+          flex: 1;
+          padding: 16px;
+          border: none;
+          border-radius: 10px;
+          font-size: 17px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s;
+      }
+      .btn-prev {
+          background: #f0f0f0;
+          color: #666;
+      }
+      .btn-prev:hover {
+          background: #e0e0e0;
+      }
+      /* 버튼 색상: 밝은 골드 그라데이션 */
+      .btn-next, .btn-submit {
+          background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+          color: white;
+      }
+      .btn-next:hover, .btn-submit:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+      }
+      .btn:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+          transform: none;
+      }
+      
+      /* === 페이지 인디케이터 스타일 (통일됨) === */
+      .page-indicator {
+          text-align: center;
+          margin-bottom: 20px; 
+          font-size: 14px;
+          color: #999;
+      }
+      .page-dots {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 8px;
+      }
+      .dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #ddd;
+          transition: all 0.3s;
+      }
+      /* 현재 페이지 표시 점 색상: 밝은 골드 */
+      .dot.active {
+          background: #FFD700;
+          width: 24px;
+          border-radius: 4px;
+      }
+      /* ================================== */
+      
+      .loading {
+          display: none;
+          text-align: center;
+          padding: 40px;
+      }
+      .spinner {
+          border: 4px solid #f3f3f3;
+          /* 스피너 색상: 밝은 골드 */
+          border-top: 4px solid #FFD700;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px;
+      }
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+      .success-message {
+          display: none;
+          text-align: center;
+          padding: 40px;
+      }
+      .success-icon {
+          font-size: 60px;
+          margin-bottom: 20px;
+      }
+      /* 성공 메시지 제목 색상: 밝은 오렌지/옐로우 강조색 */
+      .success-message h2 {
+          color: #FFA500;
+          margin-bottom: 15px;
+          font-size: 24px;
+      }
+      .success-message p {
+          color: #666;
+          line-height: 1.8;
+          font-size: 15px;
+      }
   </style>
 </head>
 <body>
   <div class="container">
     <div id="form-container">
-      <h1>✨ 수업/관리 후기 작성</h1>
-      <p class="subtitle">소중한 후기 감사합니다!</p>
-      <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
       
       <div class="page-indicator">
         <span id="pageText">1 / 2</span>
@@ -319,7 +342,10 @@
           <div class="dot" data-page="2"></div>
         </div>
       </div>
-
+      
+      <h1>✨후기 작성</h1>
+      <p class="subtitle">소중한 후기 감사합니다!</p>
+      <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
       <form id="reviewForm">
         <div class="page active" id="page1">
           <div class="form-group">
@@ -370,12 +396,13 @@
               <span class="star active" data-rating="4">⭐</span>
               <span class="star active" data-rating="5">⭐</span>
             </div>
-             <input type="hidden" name="rating" id="ratingValue" value="5" required>
+              <input type="hidden" name="rating" id="ratingValue" value="5" required>
           </div>
 
           <div class="form-group">
             <label>4. 주변에 추천하고 싶은 분이 계신가요? (선택)</label>
-            <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">              
+
+            <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">              
               <span style="font-size: 15px; color: #333;">🎁 <strong>소개하고 싶은 분이 딱 떠오른다면!</strong></span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요.</span>
             </div>
@@ -387,8 +414,9 @@
               </label>
             </div>
             
-            <div id="couponProgramSelect" style="margin-top: 15px; padding: 15px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
-              <label style="font-size: 14px; color: #667eea; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
+            <div id="couponProgramSelect" style="margin-top: 15px; padding: 15px; background: #FFFDE7; border-radius: 10px; border: 2px solid #FFA500;">
+              
+              <label style="font-size: 14px; color: #FFA500; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
               <div class="radio-group">
                 <label class="radio-option">
                   <input type="radio" name="couponProgram" value="P-스트레칭">
@@ -403,10 +431,10 @@
                   <span>인사이드</span>
                 </label>
               </div>
-              <div id="couponDescription" style="margin-top: 15px; padding: 10px; border-radius: 8px; background: #ffffff; border-left: 3px solid #667eea; font-size: 13px; min-height: 40px; color: #333;">
+              <div id="couponDescription" style="margin-top: 15px; padding: 10px; border-radius: 8px; background: #ffffff; border-left: 3px solid #FFA500; font-size: 13px; min-height: 40px; color: #333;">
                 프로그램을 선택하시면 간략한 설명이 표시됩니다.
               </div>
-            </div>            
+            </div>            
           </div>
 
           <div class="button-group">
@@ -546,7 +574,7 @@
         
         // 1. 스타일 업데이트
         document.querySelectorAll(`input[name="${radioName}"]`).forEach(input => {
-             input.parentElement.classList.remove('selected');
+              input.parentElement.classList.remove('selected');
         });
         this.classList.add('selected');
         radioInput.checked = true;
@@ -555,7 +583,7 @@
         if (radioName === 'couponProgram' && couponDescriptionDiv) {
             const selectedValue = radioInput.value;
             if (couponDescriptions[selectedValue]) {
-                couponDescriptionDiv.innerHTML = couponDescriptions[selectedValue];
+              couponDescriptionDiv.innerHTML = couponDescriptions[selectedValue];
             }
         }
       });
