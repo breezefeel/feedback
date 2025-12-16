@@ -32,13 +32,12 @@
           box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       }
 
-      /* 제목 색상: 밝은 오렌지/옐로우 강조색 */      
-      .main-title {
-        text-align: center;
-        /* 색상 변경 */
-        color: #FFA500;
-        margin-bottom: 30px;
-        font-size: 32px;
+      /* 제목 색상: 밝은 오렌지/옐로우 강조색 */
+      h1 {
+          text-align: center;
+          color: #FFA500;
+          margin-bottom: 15px;
+          font-size: 28px;
       }
       .subtitle {
           text-align: center;
@@ -74,7 +73,9 @@
           color: #333;
           font-size: 15px;
       }
-      .required { color: #ff6b6b; }
+      /* 필수 표시(*) 색상: #ff6b6b (적용 완료) */
+      .required { color: #ff6b6b; } 
+      
       input[type="text"], input[type="tel"], textarea {
           width: 100%;
           padding: 14px;
@@ -356,18 +357,18 @@
         <span id="pageText">1 / 2</span> 
       </div>
       
-      <h1 class="main-title">✨후기 작성</h1>
+      <h1>✨후기 작성</h1>
       <p class="subtitle">소중한 후기 감사합니다!</p>
       <div class="divider">━━━━━━━━━━━━━━━━━━━</div>
       <form id="reviewForm">
         <div class="page active" id="page1">
           <div class="form-group">
-            <label>회원 성명 <span class="required">*</span></label>
+            <label>1. 이름 <span class="required">*</span></label>
             <input type="text" name="nickname" id="nickname" required placeholder="이름을 입력하세요" autofocus>
           </div>
 
           <div class="form-group">
-            <label>연락처 <span class="required">*</span></label>
+            <label>2. 연락처 <span class="required">*</span></label>
             <div class="phone-group">
               <input type="tel" id="phone1" value="010" readonly>
               <input type="tel" id="phone2" maxlength="4" required placeholder="1234" inputmode="numeric" pattern="[0-9]*">
@@ -415,7 +416,7 @@
           <div class="form-group">
             <label>4. 주변에 추천하고 싶은 분이 계신가요? (선택)</label>
 
-            <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;">              
+            <div class="guide" style="margin-bottom: 15px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff6b6b;"> 
               <span style="font-size: 15px; color: #333;">🎁 <strong>소개하고 싶은 분이 딱 떠오른다면!</strong></span><br>
               <span style="font-size: 13px; color: #856404;">→ 사용 가능한 1회 무료 쿠폰을 드려요.</span>
             </div>
