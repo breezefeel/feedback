@@ -378,11 +378,6 @@
             </div>
 
             <div class="form-group">
-              <label>지인 성함</span></label>
-              <input type="text" name="referralName" id="referralName" placeholder="지인 성함">
-            </div>
-
-            <div class="form-group">
                 <div class="phone-group">
                   <input type="tel" id="refPhone1" value="010" readonly>
                   <input type="tel" id="refPhone2" maxlength="4" placeholder="1234" inputmode="numeric" pattern="[0-9]*">
@@ -390,7 +385,25 @@
                 </div>
                 <input type="hidden" name="referralPhone" id="referralPhoneHidden">
             </div>
-            
+
+            <div class="form-group">
+              <label>관계</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="referralName" value="가족">
+                  <span>가족</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="referralName" value="친구">
+                  <span>친구</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="referralName" value="지인">
+                  <span>지인</span>
+                </label>
+              </div>
+            </div>
+
             <div id="couponProgramSelect" style="margin-top: 25px; padding: 15px; background: #FFFDE7; border-radius: 10px; border: 2px solid #FFA500;">
               <label style="font-size: 14px; color: #FFA500; margin-bottom: 8px; font-weight: 600;">쿠폰 프로그램 선택:</label>
               <div class="radio-group">
@@ -452,7 +465,7 @@
       document.getElementById('nickname').focus();
     });
 
-    // 페이지 전환 함수
+    // 페이지 전환 함수 (수정됨)
     function showPage(pageNum) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page' + pageNum).classList.add('active');
@@ -465,13 +478,13 @@
 
       window.scrollTo(0, 0);
 
-      // 페이지 진입 시 자동 포커스 (별점이 먼저이므로 2페이지 진입 시 포커스 제거 혹은 별점 유지)
-      // 별점에는 포커스를 줄 입력창이 없으므로 2페이지 진입 시 스크립트 포커스 로직은 제거하거나 후기창으로 유지할 수 있음.
-      // 사용성을 위해 후기 입력창(reviewText)으로 포커스 유지
+      // ▼▼▼ [포커스 로직 수정 부분] ▼▼▼
       if (pageNum === 2) {
+        // 2페이지 진입 시: 후기 작성칸 포커스
         setTimeout(() => document.getElementById('reviewText').focus(), 100);
       } else if (pageNum === 3) {
-        setTimeout(() => document.getElementById('referralName').focus(), 100);
+        // 3페이지 진입 시: 지인 연락처(가운데 자리) 포커스
+        setTimeout(() => document.getElementById('refPhone2').focus(), 100);
       }
     }
 
