@@ -290,6 +290,21 @@
           line-height: 1.8;
           font-size: 15px;
       }
+          .radio-group {
+          display: flex;
+          flex-wrap: wrap;       /* 공간이 부족하면 다음 줄로 넘김 */
+          gap: 10px 0;           /* 위아래 간격 10px, 좌우 간격 0 */
+          width: 100%;
+      }
+      
+      .radio-option {
+          flex: 0 0 33.33%;      /* 정확히 가로 너비의 1/3을 차지함 */
+          display: flex;
+          align-items: center;
+          justify-content: flex-start; /* 왼쪽 정렬 */
+          box-sizing: border-box;
+          padding: 5px;          /* 터치 영역 확보 */
+      }
   </style>
 </head>
 <body>
