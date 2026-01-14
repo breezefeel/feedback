@@ -351,7 +351,9 @@
               <span style="color: #999; font-size: 12px;">
                 <strong><가장 많았던 후기></strong><br>
                 <strong>P-스트레칭)</strong> "전문가의 손길이 다르긴 다르네요", "뭐가 문제였는지 확실히 알았어요", "거북목이 확 펴지는 느낌!"<br><br>
+                <strong>재활운동)</strong> "통증 원인을 알았어요", "관리 방법을 배우니까 관리가 가능해졌어요", "제 몸을 제대로 쓰는 법을 배운 기분이에요"<br><br>
                 <strong>작은얼굴)</strong> "턱선이 살아났어요", "꾸준하게 하면 진짜 될 것 같은 느낌이 확 들었어요", "그동안 받았던 에스테틱이란 완전 달라요"<br><br>
+                <strong>복부관리)</strong> "속이 정말 편안해져요", "바지가 사이즈가 줄었어요", "아로마 향은 신세계였어"<br><br>
                 <strong>인사이드)</strong> "진짜 신기해요. 성향분석 완전 정확해요", "목표를 찾은것 같아요", "내 재능이 뭔지 확실히 알겠어요"<br><br>
               </span>
             </div>
@@ -412,13 +414,22 @@
                   <span>P-스트레칭</span>
                 </label>
                 <label class="radio-option">
+                  <input type="radio" name="couponProgram" value="재활운동">
+                  <span>재활운동</span>
+                </label>
+                <label class="radio-option">
                   <input type="radio" name="couponProgram" value="작은얼굴">
                   <span>작은얼굴</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="couponProgram" value="복부관리">
+                  <span>복부관리</span>
                 </label>
                 <label class="radio-option">
                   <input type="radio" name="couponProgram" value="인사이드">
                   <span>인사이드</span>
                 </label>
+                
               </div>
               <div id="couponDescription" style="margin-top: 15px; padding: 10px; border-radius: 8px; background: #ffffff; border-left: 3px solid #FFA500; font-size: 13px; min-height: 40px; color: #333;">
                 프로그램을 선택하시면 간략한 설명이 표시됩니다.
@@ -455,9 +466,11 @@
     // 프로그램 설명 데이터
     const couponDescriptions = {
       "P-스트레칭": "<strong>목적:</strong> 만성 통증 관리 및 자세 교정.<br> <strong>이점:</strong> 유연성 회복과 거북목, 굽은 어깨, 허리 뻐근함 완화에 효과적입니다.",
+      "재활운동": "<strong>목적:</strong> 근기능 회복 및 셀프 통증 관리.<br> <strong>이점:</strong> 통증의 근본 원인을 이해하고, 셀프 통증관리 방법과 근기능 회복에 집중합니다.",
       "작은얼굴": "<strong>목적:</strong> 턱라인 개선 및 림프 순환 촉진.<br> <strong>이점:</strong> V라인, 턱선 정리, 부종 제거 및 안면 윤곽 관리에 탁월합니다.",
       // 수정된 부분: (쿠폰은 성향만 검사) 추가됨
-      "인사이드": "<strong>목적:</strong> 내면의 성향 및 재능 분석.(쿠폰은 성향만 검사)<br> <strong>이점:</strong> 잠재력 발견, 목표 설정, 자기 이해 증진을 통해 인생의 방향성을 제시합니다."
+      "복부관리": "<strong>목적:</strong> 심부 온도 상승 및 장기 순환 촉진.<br> <strong>이점:</strong> 복부 부종 및 독소 배출, 소화 기능 개선과 더불어 탄력 있는 허리 라인 관리에 효과적입니다.",
+      "인사이드": "<strong>목적:</strong> 내면의 성향 및 재능 분석.(쿠폰은 성향만 검사)<br> <strong>이점:</strong> 잠재력 발견, 목표 설정, 자기 이해 증진을 통해 인생의 방향성을 제시합니다."      
     };
 
     // 페이지 로드 시 첫 번째 입력칸에 포커스
