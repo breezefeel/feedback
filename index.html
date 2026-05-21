@@ -600,6 +600,7 @@
     let memberNameResolved = '';
     let memberPhoneResolved = '';
     let isLookupBusy = false;
+    let pendingAdvanceAfterLookup = false;
 
     const digits = ['', '', '', '', '', '', '', ''];
     let activeSegment = 'mid';
@@ -673,6 +674,28 @@
       document.getElementById('nextBtn1').disabled = !ok;
     }
 
+    function updatePage1NextButton() {
+      const pickerActive = document.getElementById('pickerWrap').innerHTML.length > 0;
+      enableNextStep(getPhoneSuffix8().length === 8 && !isLookupBusy && !pickerActive);
+    }
+
+    function advanceToPage2IfReady() {
+      if (!memberNameResolved || getPhoneSuffix8().length !== 8) return false;
+      document.getElementById('phoneHidden').value = memberPhoneResolved || getPhoneFormatted();
+      showPage(2);
+      return true;
+    }
+
+    function startPage1MemberFlow() {
+      if (getPhoneSuffix8().length !== 8 || isLookupBusy) return;
+      if (memberNameResolved) {
+        advanceToPage2IfReady();
+        return;
+      }
+      pendingAdvanceAfterLookup = true;
+      lookupMemberByPhone();
+    }
+
     function formatLookupErrorMessage_(json) {
       if (json && json.notFound) {
         return (
@@ -688,7 +711,8 @@
       if (json.result !== 'success') {
         showLookupStatus(formatLookupErrorMessage_(json), true);
         setMemberUi('');
-        enableNextStep(false);
+        pendingAdvanceAfterLookup = false;
+        updatePage1NextButton();
         return;
       }
       memberPhoneResolved = json.phone || getPhoneFormatted();
@@ -696,7 +720,7 @@
 
       if (json.needPhoneSelect && json.candidates && json.candidates.length) {
         setMemberUi('');
-        enableNextStep(false);
+        updatePage1NextButton();
         showLookupStatus('동일 번호가 여러 건입니다.<br>본인을 선택해 주세요.', false);
         const wrap = document.getElementById('pickerWrap');
         wrap.innerHTML = '';
@@ -708,9 +732,13 @@
           btn.textContent = c.name + ' (끝자리 ' + c.last4 + ')';
           btn.addEventListener('click', function () {
             setMemberUi(c.name);
-            showLookupStatus('<span class="name-line">' + c.name + '님</span> 확인되었습니다.', false);
             wrap.innerHTML = '';
-            enableNextStep(true);
+            if (pendingAdvanceAfterLookup) {
+              advanceToPage2IfReady();
+              pendingAdvanceAfterLookup = false;
+            } else {
+              updatePage1NextButton();
+            }
           });
           box.appendChild(btn);
         });
@@ -720,8 +748,12 @@
 
       setMemberUi(json.name || '');
       document.getElementById('pickerWrap').innerHTML = '';
-      showLookupStatus('<span class="name-line">' + (json.name || '') + '님</span> 확인되었습니다.', false);
-      enableNextStep(!!json.name);
+      if (pendingAdvanceAfterLookup && json.name) {
+        advanceToPage2IfReady();
+        pendingAdvanceAfterLookup = false;
+        return;
+      }
+      updatePage1NextButton();
     }
 
     async function lookupMemberByPhone() {
@@ -730,7 +762,7 @@
       isLookupBusy = true;
       hideLookupStatus();
       document.getElementById('pickerWrap').innerHTML = '';
-      enableNextStep(false);
+      updatePage1NextButton();
       showLookupStatus('회원 정보 확인 중…', false);
 
       try {
@@ -747,9 +779,11 @@
             '<span style="font-size:13px;color:#6b7280;">번호가 맞는데 반복되면 프런트에 문의해 주세요.</span>',
           true
         );
-        enableNextStep(false);
+        pendingAdvanceAfterLookup = false;
+        updatePage1NextButton();
       } finally {
         isLookupBusy = false;
+        updatePage1NextButton();
       }
     }
 
@@ -761,10 +795,10 @@
       if (idx === 3) activeSegment = 'end';
       renderDigits();
       setMemberUi('');
-      enableNextStep(false);
       hideLookupStatus();
       document.getElementById('pickerWrap').innerHTML = '';
-      if (filledCount() === 8) lookupMemberByPhone();
+      updatePage1NextButton();
+      if (filledCount() === 8) startPage1MemberFlow();
     }
 
     function backspaceDigit() {
@@ -775,9 +809,9 @@
       activeSegment = idx < 4 ? 'mid' : 'end';
       renderDigits();
       setMemberUi('');
-      enableNextStep(false);
       hideLookupStatus();
       document.getElementById('pickerWrap').innerHTML = '';
+      updatePage1NextButton();
     }
 
     document.querySelectorAll('.keypad button').forEach(function (btn) {
@@ -801,10 +835,9 @@
           setMemberUi(name);
           memberPhoneResolved = getPhoneFormatted();
           document.getElementById('phoneHidden').value = memberPhoneResolved;
-          showLookupStatus('<span class="name-line">' + name + '님</span> 확인되었습니다.', false);
-          enableNextStep(true);
+          advanceToPage2IfReady();
         } else {
-          lookupMemberByPhone();
+          startPage1MemberFlow();
         }
       } else if (name) {
         setMemberUi(name);
@@ -855,12 +888,11 @@
     });
 
     document.getElementById('nextBtn1').addEventListener('click', function () {
-      if (!memberNameResolved || getPhoneSuffix8().length !== 8) {
-        alert('전화번호 8자리 입력 후 회원 확인이 완료되어야 합니다.');
+      if (getPhoneSuffix8().length !== 8) {
+        alert('휴대폰 뒤 8자리를 모두 입력해 주세요.');
         return;
       }
-      document.getElementById('phoneHidden').value = memberPhoneResolved || getPhoneFormatted();
-      showPage(2);
+      startPage1MemberFlow();
     });
 
     document.getElementById('nextBtn2').addEventListener('click', function () {
