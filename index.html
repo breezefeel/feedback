@@ -529,6 +529,11 @@
 
           <div id="refInputFields" class="ref-fields disabled">
             <div class="form-group">
+              <label for="referralFriendName">지인 이름</label>
+              <input type="text" id="referralFriendName" name="referralFriendName" maxlength="30" placeholder="지인분 성함" autocomplete="name">
+            </div>
+
+            <div class="form-group">
               <label>지인 연락처</label>
               <div class="phone-group">
                 <input type="tel" id="refPhone1" value="010" readonly>
@@ -945,6 +950,8 @@
     });
 
     function clearReferralFields() {
+      const friendNameEl = document.getElementById('referralFriendName');
+      if (friendNameEl) friendNameEl.value = '';
       refPhone2.value = '';
       refPhone3.value = '';
       document.getElementById('referralPhoneHidden').value = '';
@@ -961,12 +968,46 @@
       refInputFields.classList.add('disabled');
     }
 
+    function referralPartiallyFilled() {
+      const p2 = refPhone2.value;
+      const p3 = refPhone3.value;
+      const friendName = (document.getElementById('referralFriendName').value || '').trim();
+      const anyPhone = p2.length > 0 || p3.length > 0;
+      const anyConsent = consentEl.checked;
+      const anyProgram = !!document.querySelector('input[name="couponProgram"]:checked');
+      const anyRelation = !!document.querySelector('input[name="referralName"]:checked');
+      return anyPhone || anyConsent || anyProgram || anyRelation || friendName.length > 0;
+    }
+
     function validateReferralIfAny() {
-      if (skipReferral) return true;
+      if (skipReferral) {
+        clearReferralFields();
+        return true;
+      }
       const p2 = refPhone2.value;
       const p3 = refPhone3.value;
       const anyRef = p2.length > 0 || p3.length > 0;
-      if (!anyRef) return true;
+      const friendName = (document.getElementById('referralFriendName').value || '').trim();
+      const anyRelation = !!document.querySelector('input[name="referralName"]:checked');
+      const anyProgram = !!document.querySelector('input[name="couponProgram"]:checked');
+      if (!anyRef && !consentEl.checked && !anyProgram && !friendName && !anyRelation) {
+        document.getElementById('referralPhoneHidden').value = '';
+        return true;
+      }
+      if (
+        referralPartiallyFilled() &&
+        (friendName.length < 1 || p2.length !== 4 || p3.length !== 4 || !consentEl.checked)
+      ) {
+        alert(
+          '지인 소개를 하시려면 지인 이름·연락처·동의·체험 프로그램을 모두 입력해 주세요.\n' +
+            '소개 없이 제출하시려면 「지인 소개 없이 제출」을 눌러 주세요.'
+        );
+        return false;
+      }
+      if (friendName.length < 1) {
+        alert('지인 이름을 입력해 주세요.');
+        return false;
+      }
       if (!consentEl.checked) {
         alert('지인 연락처를 남기려면 동의에 체크해 주세요.');
         return false;
@@ -976,7 +1017,7 @@
         return false;
       }
       document.getElementById('referralPhoneHidden').value = '010-' + p2 + '-' + p3;
-      if (!document.querySelector('input[name="couponProgram"]:checked')) {
+      if (!anyProgram) {
         alert('지인에게 보낼 체험 프로그램을 선택해 주세요.');
         return false;
       }
@@ -986,20 +1027,29 @@
     async function submitReview() {
       if (!validateReferralIfAny()) return;
 
+      const friendName = (document.getElementById('referralFriendName').value || '').trim();
+      const hasReferral =
+        !skipReferral &&
+        friendName.length >= 1 &&
+        String(document.getElementById('referralPhoneHidden').value || '').replace(/\D/g, '').length >= 10 &&
+        consentEl.checked &&
+        !!document.querySelector('input[name="couponProgram"]:checked');
+
       const payload = {
         action: 'submitFeedback',
         nickname: document.getElementById('nickname').value.trim(),
         phone: document.getElementById('phoneHidden').value,
         rating: document.getElementById('ratingValue').value,
         review: document.getElementById('reviewText').value.trim(),
-        referralPhone: skipReferral ? '' : document.getElementById('referralPhoneHidden').value,
-        referralName: skipReferral
-          ? ''
-          : (document.querySelector('input[name="referralName"]:checked') || {}).value || '',
-        couponProgram: skipReferral
-          ? ''
-          : (document.querySelector('input[name="couponProgram"]:checked') || {}).value || '',
-        referralConsent: skipReferral ? false : consentEl.checked,
+        referralFriendName: hasReferral ? friendName : '',
+        referralPhone: hasReferral ? document.getElementById('referralPhoneHidden').value : '',
+        referralName: hasReferral
+          ? (document.querySelector('input[name="referralName"]:checked') || {}).value || ''
+          : '',
+        couponProgram: hasReferral
+          ? (document.querySelector('input[name="couponProgram"]:checked') || {}).value || ''
+          : '',
+        referralConsent: hasReferral,
         submittedAt: new Date().toISOString(),
       };
 
@@ -1032,7 +1082,8 @@
     function updateSuccessReferralLine_(payload, json) {
       var el = document.getElementById('referralSuccessLine');
       if (!el) return;
-      var hadRef = !skipReferral && String(payload.referralPhone || '').replace(/\D/g, '').length >= 10;
+      var hadRef =
+        String(payload.referralPhone || '').replace(/\D/g, '').length >= 10 && !!payload.referralConsent;
       if (!hadRef) {
         el.innerHTML = '<strong>지인 안내</strong> — 연락처를 남기지 않으셨습니다.';
         return;
